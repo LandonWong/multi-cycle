@@ -99,12 +99,13 @@ module MultiCycleCPU (reset, clk);
 
 	assign alu_in1 = ({32{alusrca == 2'b00}} & PC            ) |
 	                 ({32{alusrca == 2'b01}} & ir_sa         ) |
-					 ({32{alusrca == 2'b10}} & reg_read_data1) |
+					 ({32{alusrca == 2'b11}} & reg_read_data1) |
 					 ({32{alusrca == 2'b10}} & 32'b0         ) ;
 
 	assign alu_in2 = ({32{alusrcb == 2'b00}} & reg_read_data2) |
 					 ({32{alusrcb == 2'b01}} & immextout     ) |
-					 ({32{alusrcb == 2'b10}} & immextshift   ) ;
+					 ({32{alusrcb == 2'b10}} & immextshift   ) |
+					 ({32{alusrcb == 2'b11}} & 32'd4         ) ;
 
 	assign pc_jump = {aluout[31:28], ir_reg[25:0], 2'b0};
 
